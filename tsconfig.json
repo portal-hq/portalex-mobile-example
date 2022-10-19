@@ -1,0 +1,17 @@
+// prettier-ignore
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@components/*": ["./components/*"],
+      "@config": ["./config.ts"],
+      "@context/*": ["./context/*"],
+      "@lib/*": ["./lib/*"]
+    },
+  },
+  "files": ["**/*.d.ts"],
+  "include": ["**/*.ts", "**/*.tsx"]
+}
