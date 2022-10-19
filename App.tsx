@@ -105,7 +105,6 @@ const App: FC = () => {
   return (
     <>
       <StatusBar />
-
       <PortalContextProvider value={portal as Portal}>
         <UserContextProvider value={user as AuthResult}>
           {typeof user !== 'undefined' && !user ? (
@@ -122,7 +121,7 @@ const App: FC = () => {
                       await storeCipherText(user.exchangeUserId, cipherText)
                     }}
                     // This prop can be used for starting on a specific screen within the setup flow
-                    initialScreen={Screens.FundProgress}
+                    initialScreen={Screens.AccountStart}
                     enableFaceId={false}
                   />
                 </View>
