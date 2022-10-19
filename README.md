@@ -4,9 +4,9 @@
 
 ## Setting up your env file
 
-_[Follow the docs](https://docs.portalhq.io/npm-packages/storage-adapters/cloud-storage/portal-hq-gdrive-storage)_ to ensure backup for google drive is setup properly.
+- _[Follow the docs](https://docs.portalhq.io/npm-packages/storage-adapters/cloud-storage/portal-hq-gdrive-storage#create-a-google-app)_ to create a google app and configure the google drive backup option.
 
-[Create an Alchemy ID](https://www.alchemy.com/)
+- Create an [Alchemy ID](https://www.alchemy.com/)
 
 We have implemented our exchange backend that is hosted at `https://portalex-mpc.portalhq.io` which you can use to get spun up quickly but we recommend using that as a guide to implement your own backend to be used with portal.
 
