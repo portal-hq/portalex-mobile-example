@@ -28,7 +28,6 @@ const App: FC = () => {
   const [portal, setPortal] = useState<Portal>()
   const [portalReady, setPortalReady] = useState<boolean>(false)
   const [user, setUser] = useState<AuthResult | null>(null)
-  const [address, setAddress] = useState<String>()
 
   // Initialize Portal when a user signs in
   useEffect(() => {
@@ -69,14 +68,11 @@ const App: FC = () => {
   useEffect(() => {
     if (portal) {
       ;(async () => {
-        const mpcReady = await portal.mpc.ready()
+        const mpcReady = await portal.mpc.isReady()
 
         console.log(`Portal Ready!`)
         setPortalReady(true)
         setMpcReady(mpcReady)
-
-        const address = await portal.mpc.address
-        setAddress(address)
       })()
     }
   }, [portal])

@@ -1,7 +1,8 @@
 // prettier-ignore
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
-  "compilerOptions": {
+    "compilerOptions": {
+    "jsx": "react",
     "baseUrl": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
