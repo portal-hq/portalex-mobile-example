@@ -7,7 +7,7 @@ import Storage from '@portal-hq/gdrive-storage'
 import Keychain from '@portal-hq/keychain'
 import { Setup, Screens } from '@portal-hq/components'
 
-import { ANDROID_CLIENT_ID, ALCHEMY_ID, IOS_CLIENT_ID } from '@config'
+import { ANDROID_CLIENT_ID, ALCHEMY_API_KEY, IOS_CLIENT_ID } from '@config'
 import { UserContextProvider } from '@context/user'
 
 import Login from '@components/login'
@@ -53,7 +53,7 @@ const App: FC = () => {
           },
           chainId,
           gatewayConfig: {
-            [chainId]: `https://eth-${chain}.g.alchemy.com/v2/${ALCHEMY_ID}`,
+            [chainId]: `https://eth-${chain}.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
           },
           isSimulator: DeviceInfo.isEmulatorSync(),
           keychain: new Keychain(),
