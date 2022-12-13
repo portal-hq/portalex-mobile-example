@@ -3,7 +3,8 @@ import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
 import { BackupMethods, Portal, PortalContextProvider } from '@portal-hq/core'
-import Storage from '@portal-hq/gdrive-storage'
+import GDRIVEStorage from '@portal-hq/gdrive-storage'
+import ICLOUDStorage from '@portal-hq/icloud-storage'
 import Keychain from '@portal-hq/keychain'
 import { Setup, Screens } from '@portal-hq/components'
 
@@ -19,6 +20,18 @@ export interface SigningRequest {
   params?: any
 }
 
+// Please uncomment the backup method you would you configured your app for.
+const backupMethod = BackupMethods.iCloud
+const backupMethodConfig = { [backupMethod]: new ICLOUDStorage() }
+
+// const backupMethod = BackupMethods.GoogleDrive
+// const backupMethodConfig = {
+//   [backupMethod]: new GDRIVEStorage({
+//     androidClientId: ANDROID_CLIENT_ID!,
+//     iosClientId: IOS_CLIENT_ID!,
+//     folder: 'PORTAL_MPC_DEMO',
+//   }),
+// }
 const chainId = 5
 const chain = 'goerli'
 
@@ -42,15 +55,8 @@ const App: FC = () => {
         }
 
         const portal = new Portal({
-          // address: user.address || null, // Only used for non-mpc
           apiKey: user.clientApiKey,
-          backup: {
-            [BackupMethods.GoogleDrive]: new Storage({
-              androidClientId: ANDROID_CLIENT_ID!,
-              iosClientId: IOS_CLIENT_ID!,
-              folder: 'PORTAL_MPC_DEMO',
-            }),
-          },
+          backup: backupMethodConfig,
           chainId,
           gatewayConfig: {
             [chainId]: `https://eth-${chain}.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
@@ -72,6 +78,9 @@ const App: FC = () => {
 
         console.log(`Portal Ready!`)
         setPortalReady(true)
+        console.log('backup', portal.backup)
+        console.log('Soragte', portal.mpc.storage)
+
         setMpcReady(mpcReady)
       })()
     }
@@ -119,6 +128,7 @@ const App: FC = () => {
                     // This prop can be used for starting on a specific screen within the setup flow
                     initialScreen={Screens.AccountStart}
                     enableFaceId={false}
+                    storageMethod={backupMethod}
                   />
                 </View>
               </SafeAreaView>
