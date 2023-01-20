@@ -4,16 +4,20 @@ import DeviceInfo from 'react-native-device-info'
 
 import { BackupMethods, Portal, PortalContextProvider } from '@portal-hq/core'
 import GDRIVEStorage from '@portal-hq/gdrive-storage'
-import ICLOUDStorage from '@portal-hq/icloud-storage'
+import iCloudStorage from '@portal-hq/icloud-storage'
 import Keychain from '@portal-hq/keychain'
-import { Setup, Screens } from '@portal-hq/components'
+import { Setup, Screens, Recovery } from '@portal-hq/components'
 
 import { ANDROID_CLIENT_ID, ALCHEMY_API_KEY, IOS_CLIENT_ID } from '@config'
 import { UserContextProvider } from '@context/user'
-
 import Login from '@components/login'
 import Home from '@components/home'
-import { getBalance, storeCipherText, transferFunds } from '@lib/custodian'
+import {
+  getCipherText,
+  getBalance,
+  storeCipherText,
+  transferFunds,
+} from '@lib/custodian'
 
 export interface SigningRequest {
   method: string
@@ -22,7 +26,7 @@ export interface SigningRequest {
 
 // Please uncomment the backup method you would you configured your app for.
 const backupMethod = BackupMethods.iCloud
-const backupMethodConfig = { [backupMethod]: new ICLOUDStorage() }
+const backupMethodConfig = { [backupMethod]: new iCloudStorage() }
 
 // const backupMethod = BackupMethods.GoogleDrive
 // const backupMethodConfig = {
@@ -63,6 +67,10 @@ const App: FC = () => {
           },
           isSimulator: DeviceInfo.isEmulatorSync(),
           keychain: new Keychain(),
+          apiHost: 'api-staging.portalhq.io',
+          mpcHost: 'mpc-staging.portalhq.io',
+          autoApprove: false,
+          mpcVersion: 'v1',
         })
 
         setPortal(portal)
@@ -76,10 +84,10 @@ const App: FC = () => {
       ;(async () => {
         const mpcReady = await portal.mpc.isReady()
 
-        console.log(`Portal Ready!`)
+        console.log('Portal Ready!')
         setPortalReady(true)
         console.log('backup', portal.backup)
-        console.log('Soragte', portal.mpc.storage)
+        console.log('storage', portal.mpc.storage)
 
         setMpcReady(mpcReady)
       })()
@@ -126,10 +134,18 @@ const App: FC = () => {
                       await storeCipherText(user.exchangeUserId, cipherText)
                     }}
                     // This prop can be used for starting on a specific screen within the setup flow
-                    initialScreen={Screens.AccountStart}
+                    initialScreen={Screens.FundStart}
                     enableFaceId={false}
                     storageMethod={backupMethod}
                   />
+                  {/* <Recovery
+                    getShare={async () => {
+                      return await getCipherText(user.exchangeUserId)
+                    }}
+                    storeShare={async (backupShare: string) => {
+                      await storeCipherText(user.exchangeUserId, backupShare)
+                    }}
+                  /> */}
                 </View>
               </SafeAreaView>
             )

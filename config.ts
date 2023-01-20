@@ -8,6 +8,6 @@ export const IOS_CLIENT_ID = Config.IOS_CLIENT_ID
 
 export const CUSTODIAN_SERVER_URL =
   Config.CUSTODIAN_SERVER_URL ||
-  'https://prod-portalex-mpc-service.onrender.com'
+  'https://staging-portalex-mpc-service.onrender.com'
 
 export const INFURA_ID = Config.INFURA_ID || ''

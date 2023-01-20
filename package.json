@@ -10,11 +10,12 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@portal-hq/components": "^0.2.30",
-    "@portal-hq/core": "^0.2.30",
-    "@portal-hq/gdrive-storage": "0.2.30",
-    "@portal-hq/icloud-storage": "^0.2.30",
-    "@portal-hq/keychain": "^0.2.30",
+    "@portal-hq/components": "^0.2.33",
+    "@portal-hq/core": "file:../monorepo/packages/core/portal-hq-core-0.2.33.tgz",
+    "@portal-hq/gdrive-storage": "0.2.33",
+    "@portal-hq/icloud-storage": "^0.2.33",
+    "@portal-hq/keychain": "^0.2.33",
+    "@portal-hq/provider": "file:../monorepo/packages/providers/web3-provider/portal-hq-provider-0.2.33.tgz",
     "axios": "^0.27.2",
     "ethers": "^5.7.1",
     "react": "^18.2.0",
