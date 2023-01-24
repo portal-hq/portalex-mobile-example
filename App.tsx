@@ -58,6 +58,7 @@ const App: FC = () => {
           await keychain.deleteDkgResult()
         }
 
+        console.log('🚀 Initializing Portal...')
         const portal = new Portal({
           apiKey: user.clientApiKey,
           backup: backupMethodConfig,
@@ -67,11 +68,11 @@ const App: FC = () => {
           },
           isSimulator: DeviceInfo.isEmulatorSync(),
           keychain: new Keychain(),
-          apiHost: 'api-staging.portalhq.io',
-          mpcHost: 'mpc-staging.portalhq.io',
           autoApprove: false,
           mpcVersion: 'v1',
         })
+
+        console.log('🚀 Portal Initialized!', portal)
 
         setPortal(portal)
       })()
@@ -134,7 +135,7 @@ const App: FC = () => {
                       await storeCipherText(user.exchangeUserId, cipherText)
                     }}
                     // This prop can be used for starting on a specific screen within the setup flow
-                    initialScreen={Screens.FundStart}
+                    initialScreen={Screens.AccountStart}
                     enableFaceId={false}
                     storageMethod={backupMethod}
                   />

@@ -28,7 +28,7 @@ PODS:
   - PortalGoogleSignIn (0.2.33):
     - GoogleSignIn (~> 6.2)
     - React-Core
-  - PortalMpc (0.2.33):
+  - PortalMpc (0.3.0):
     - React-Core
   - PortalRNCloudFs (0.2.33):
     - React-Core
@@ -471,7 +471,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: d62ffccea5108bb9e7762ee121ae63bbdd2c6303
   PortalGoogleSignIn: 6c2ef1bcc6858eb1df37f76ababd00c651d85305
-  PortalMpc: bbf357572903b4289dc4e6c58b40e36a1cb8688c
+  PortalMpc: 6273c80c5a8d2e65a3ee6f4e348eebee8e91f555
   PortalRNCloudFs: fa06c6222b6b264d5879a0eb4d15e6e63353a9b0
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: e1866f61af7049eb3d8e08e8b133abd38bc1ca7a
