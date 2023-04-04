@@ -35,12 +35,17 @@ const backupMethodConfig = { [backupMethod]: new ICLOUDStorage() }
 const chainId = 5
 const chain = 'goerli'
 
+enum Pages {
+  Setup = 'Setup',
+  Home = 'Home',
+}
 const App: FC = () => {
   const [initialized, setInitialize] = useState<boolean>(false)
   const [mpcReady, setMpcReady] = useState<boolean>(false)
   const [portal, setPortal] = useState<Portal>()
   const [portalReady, setPortalReady] = useState<boolean>(false)
   const [user, setUser] = useState<AuthResult | null>(null)
+  const [page, setPage] = useState<Pages>(Pages.Setup)
 
   // Initialize Portal when a user signs in
   useEffect(() => {
@@ -78,9 +83,6 @@ const App: FC = () => {
 
         console.log(`Portal Ready!`)
         setPortalReady(true)
-        console.log('backup', portal.backup)
-        console.log('Soragte', portal.mpc.storage)
-
         setMpcReady(mpcReady)
       })()
     }
@@ -119,17 +121,23 @@ const App: FC = () => {
             portalReady && (
               <SafeAreaView>
                 <View style={{ width: '100%', height: '100%' }}>
-                  <Setup
-                    transfer={transfer}
-                    getBalance={getExchangeBalance}
-                    sendCipherText={async (cipherText: string) => {
-                      await storeCipherText(user.exchangeUserId, cipherText)
-                    }}
-                    // This prop can be used for starting on a specific screen within the setup flow
-                    initialScreen={Screens.AccountStart}
-                    enableFaceId={false}
-                    storageMethod={backupMethod}
-                  />
+                  {page === Pages.Setup && (
+                    <Setup
+                      transfer={transfer}
+                      getBalance={getExchangeBalance}
+                      sendCipherText={async (cipherText: string) => {
+                        await storeCipherText(user.exchangeUserId, cipherText)
+                      }}
+                      // This prop can be used for starting on a specific screen within the setup flow
+                      initialScreen={Screens.AccountStart}
+                      enableFaceId={false}
+                      storageMethod={backupMethod}
+                      onBackupFinish={() => {
+                        setPage(Pages.Home)
+                      }} // This prop can be used to navigate to a different screen after the backup is complete
+                    />
+                  )}
+                  {page === Pages.Home && <Home />}
                 </View>
               </SafeAreaView>
             )
